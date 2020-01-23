@@ -1,0 +1,22 @@
+1. What are Channels and Kernels (according to EVA)?**
+
+   A channel comprise of a container of same or similar context. It represents a group of similar/same entities present in a image. Channels when combined produces an image. For e.g Red channel is formed by extracting all the red information from an image. An analogy is of sound recording where we have channel for each type of instrument such as drum, piano, voice etc. Things can be tweaked easily using different channels.
+
+   A kernel is a matrix comprising of feature which when convolved over an image generates a feature map. It could be for detecting an eye, nose, etc in a face.
+
+   The output of a kernel is a feature and feature map by retrieved collecting all such similar features from the image. One feature map forms a channel
+
+2. Why should we (nearly) always use 3x3 kernels?
+
+   Its a feature extractor and reduces dimensionality by 2. We can make kernel of any size using 3x3. It is symmetric compared to 2x2 which is not. Using 3x3 requires less parameters compared to kernels of other size such as 5x5 or 7x7. Using 3x3 twice is equivalent to single 5x5, however parameters in case of 3x3 is 18 and 25 in case of 5x5.
+
+3. How many times to we need to perform 3x3 convolutions operations to reach close to 1x1 from 199x199 (type each layer output like 199x199 > 197x197...)
+	99
+	
+4. How are kernels initialized? 
+
+   Kernels are initialized randomly. They are determined by network and can comprise of different kernels such as vertical and horizontal lines, light and gray textures etc. Before 2012 scientists used to do it manually and now its done automatically by the network. 
+
+5. What happens during the training of a DNN?
+
+   During the training, network tries to extract features by convolving different kernels over the image. These features are extracted in the order of edges and gradients, textures and patterns, parts of objects and objects finally. Network also adjusts weight during a process called backpropagation and its done by increasing/decreasing the gradients.
