@@ -1,4 +1,4 @@
-# zEVA4 - Session 2 : 22-Jan-2020
+# EVA4 - Session 2 : 22-Jan-2020
 
 #### Video  : https://youtu.be/pQCGtqDg8nw
 
