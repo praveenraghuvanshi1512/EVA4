@@ -263,3 +263,9 @@
 
 - There is something buggy in the code, we need to fix it while attempting the quiz.
 
+- Edges - sharp pixel changes
+  Gradient - slow pixel changes
+  Change = DELTA also called gradient. Don’t confuse this change/delta/gradient to above Gradient.
+
+- 
+
