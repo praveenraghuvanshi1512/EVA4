@@ -267,5 +267,11 @@
   Gradient - slow pixel changes
   Change = DELTA also called gradient. Don’t confuse this change/delta/gradient to above Gradient.
 
-- 
 
+
+
+## Assignment
+
+- [PyTorch NN tutorial](https://pytorch.org/tutorials/beginner/nn_tutorial.html)
+- [Build PyTorch CNN - Object Oriented Neural Networks](https://www.youtube.com/watch?v=k4jY9L8H89U)
+- https://www.aiworkbox.com/lessons/how-to-define-a-convolutional-layer-in-pytorch
