@@ -133,7 +133,7 @@
 
 - Use MP as far as possible from last layer of prediction..
 
-  <img src="D:\Praveen\SourceControl\github\praveenraghuvanshi1512\EVA4\Session-2\assets\pre-post-mp.png" alt="Pre and Post MP" style="zoom:80%;" />
+  <img src=".\assets\pre-post-mp.png" alt="Pre and Post MP" style="zoom:80%;" />
 
 - If we do MP one more time, it'll reduce the image much smaller.
 
