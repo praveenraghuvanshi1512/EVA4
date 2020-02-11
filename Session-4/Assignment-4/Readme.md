@@ -26,6 +26,10 @@
 
 - **No of Epochs**: 20
 
+- **Fully Connected Layer:** No
+
+- ReLU, Batch Normalization
+
 - Model
 
   ```python
