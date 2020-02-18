@@ -1,16 +1,6 @@
 # EVA4 Assignment 5 - Praveen Raghuvanshi
 
-### Team
 
-- **Praveen Raghuvanshi** - praveenraghuvanshi@gmail.com
-
-- Rohit - rohitfattepur@gmail.com
-
-- Veera - infochunduri@gmail.com
-
-  
-
-## Assignment
 
 - [Github Link](https://github.com/praveenraghuvanshi1512/EVA4/tree/Session-5/Session-5/Assignment-5)
 
