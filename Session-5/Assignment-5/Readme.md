@@ -1,4 +1,4 @@
-# EVA4 Assignment 4 - Praveen Raghuvanshi
+# EVA4 Assignment 5 - Praveen Raghuvanshi
 
 ### Team
 
@@ -126,22 +126,187 @@
     
     ```
 
-    
 
-  
+### Final Model
 
-#### Analysis
+```python
+'''Neural Network                      Input      Output     RF
+  Input Block(Conv1) ->                 28          26        3     
+  Conv Block-1(Conv2) ->                26          24        5     
+  Transition Block-1(Conv3) ->          24          12        10    
+  Conv Block-2(Conv4 -> Conv5) ->       12          8         14    
+  Conv Block-3(Conv6 -> Conv7) ->       8           4         18  
+  Output Block(Conv8 -> Conv9)          4           1         22 
 
-- Dataset: MNIST
+  Conv1(26) -> Conv2(24) -> MP(12) -> Conv-3(12) -> Conv-4(10) -> Conv-5(8) -> Conv-6(6) -> Conv-7(4) -> Conv-8(2) -> Conv-9(1)
+'''
+class Net(nn.Module):
+    def __init__(self):
+        super(Net, self).__init__()
 
-- Image size: 28 x 28 x 1
+        # Input Block
+        self.convblock1 = nn.Sequential(
+            nn.Conv2d(in_channels=1, out_channels=8, kernel_size=(3, 3), padding=0, bias=False),
+            nn.ReLU()
+        ) # output_size = 26
 
-- Train data: 60000, Test data: 10000
+        # CONVOLUTION BLOCK 1
+        self.convblock2 = nn.Sequential(
+            nn.Conv2d(in_channels=8, out_channels=16, kernel_size=(3, 3), padding=0, bias=False),
+            nn.ReLU()
+        ) # output_size = 24
 
-- Classes (10) : [0, 1, 2, 3, 4, 5, 6, 7, 8, 9] 
+        # TRANSITION BLOCK 1
+        self.pool1 = nn.MaxPool2d(2, 2) # output_size = 12
+        self.convblock3 = nn.Sequential(
+            nn.Conv2d(in_channels=16, out_channels=16, kernel_size=(1, 1), padding=0, bias=False),
+            nn.ReLU()
+        ) # output_size = 12
 
-- Images are of same size, centered and size normalized
+        # CONVOLUTION BLOCK 2
+        self.convblock4 = nn.Sequential(
+            nn.Conv2d(in_channels=16, out_channels=32, kernel_size=(3, 3), padding=0, bias=False),
+            nn.ReLU()
+        ) # output_size = 10
+        self.convblock5 = nn.Sequential(
+            nn.Conv2d(in_channels=32, out_channels=64, kernel_size=(3, 3), padding=0, bias=False),
+            nn.ReLU()
+        ) # output_size = 8
 
-- MNIST is a labeled dataset and falls under supervised learning
+        # CONVOLUTION BLOCK 3
+        self.convblock6 = nn.Sequential(
+            nn.Conv2d(in_channels=64, out_channels=128, kernel_size=(3, 3), padding=0, bias=False),
+            nn.ReLU()
+        ) # output_size = 6
+        self.convblock7 = nn.Sequential(
+            nn.Conv2d(in_channels=128, out_channels=256, kernel_size=(3, 3), padding=0, bias=False),
+            nn.ReLU()
+        ) # output_size = 4
 
-  
+        # OUTPUT BLOCK
+        self.convblock8 = nn.Sequential(
+            nn.Conv2d(in_channels=256, out_channels=10, kernel_size=(1, 1), padding=0, bias=False),
+            nn.ReLU()
+        ) # output_size = 2
+        self.convblock9 = nn.Sequential(
+            nn.Conv2d(in_channels=10, out_channels=10, kernel_size=(2, 2), padding=0, bias=False),
+            # nn.ReLU() NEVER!
+        ) # output_size = 1
+
+    def forward(self, x):
+        # Input block
+        x = self.convblock1(x)
+        # Block-1
+        x = self.convblock2(x)
+        # Transition Block-1
+        x = self.pool1(x)
+        x = self.convblock3(x)
+        # Block-2        
+        x = self.convblock4(x)
+        x = self.convblock5(x)
+        # Block-3
+        x = self.convblock6(x)
+        x = self.convblock7(x)
+        # Output Block        
+        x = self.convblock8(x)
+        x = self.convblock9(x)
+        # Reshape
+        x = x.view(-1, 10)
+        return F.log_softmax(x, dim=-1) # Classification
+```
+
+
+
+### Summary
+
+| Iteration | Model Change                   | Params | Train Acc | Test Acc | Acc Gap | Overfitting(Max Test Acc) | Disease          | Remedy                 | Analysis                        |
+| --------- | ------------------------------ | ------ | --------- | -------- | ------- | ------------------------- | ---------------- | ---------------------- | ------------------------------- |
+| 1         | Basic Model                    | 30544  | 99.08     | 98.90    | 0.18    | No(99.82)                 | No of parameters | Reduce channels        | Model is ok. Acc                |
+| 2         | Lighter + Batch Normalization  | 7612   | 99.19     | 98.98    | 0.21    | No(99.79)                 | Less accuracy    | Increase Capacity      | Model is good. Used GAP         |
+| 3         | Increase Capacity              | 8908   | 99.55     | 99.25    | 0.30    | No(99.70)                 | Less accuracy    | Add Image augmentation | Good Model, have capacity       |
+| 4         | Augmentation. Rotation : +- 20 | 8908   | 98.82     | 99.39    | -0.57   | No(100.57)                | Less accuracy    | Add LR and capacity    | Acc improved                    |
+| 5         | LR + Increase Capacity         | 9838   | 98.88     | 99.46    | -0.58   | No(100.58)                | --               | --                     | Target Acc achieved in 3 epochs |
+|           |                                |        |           |          |         |                           |                  |                        |                                 |
+|           |                                |        |           |          |         |                           |                  |                        |                                 |
+|           |                                |        |           |          |         |                           |                  |                        |                                 |
+|           |                                |        |           |          |         |                           |                  |                        |                                 |
+
+
+
+## [Code 1: BASE Model]()
+
+**Target:**
+
+1. Get the set-up right
+2. Set Transforms
+3. Set Data Loader
+4. Set Basic Working Code
+5. Set Basic Training & Test Loop
+6. Results:
+   1. Parameters: 30,544
+   2. Best Training Accuracy: 99.16
+   3. Best Test Accuracy: 98.82
+7. Analysis:
+   1. Little Heavy Model for such a problem
+   2. No overfitting
+
+
+
+## [Code 2: LIGHTER and Batch Norm Model]()
+
+**Target:**
+
+1. Make the model lighter
+2. Add Batch norm to increase efficiency
+3. Results:
+   1. Parameters: 7,612
+   2. Best Training Accuracy: 99.19
+   3. Best Test Accuracy: 98.98
+4. Analysis:
+   1. Reduced Channels
+   2. Used GAP
+   3. Acc improved
+   4. No overfitting
+
+
+
+## [Code 3: Increase capacity]()
+
+**Target:**
+
+1. Add more layers to increase capacity
+2. Manipulated channels
+3. Results:
+   1. Parameters: 8908
+   2. Best Training Accuracy: 99.55
+   3. Best Test Accuracy: 99.25
+4. Analysis:
+   1. Acc improved
+   2. No overfitting
+
+## [Code 4: Augmentation]()
+
+**Target:**
+
+1. Added rotation augmentation(+-20)
+2. Results:
+   1. Parameters: 8908
+   2. Best Training Accuracy: 98.82
+   3. Best Test Accuracy: 99.39
+3. Analysis:
+   1. Data augmentation increased the data and Acc improved
+   2. No overfitting
+
+## [Code : LR + Increase Capacity]()
+
+**Target:**
+
+1. Added LR
+2. Increase Capacity
+3. Results:
+   1. Parameters: 9838
+   2. Best Training Accuracy: 98.88
+   3. Best Test Accuracy: 99.46
+4. Analysis:
+   1. Improved accuracy and target achieved with accuracy > 99.4 in 3 epochs.
+   2. No overfitting
