@@ -35,4 +35,4 @@
 
 ### References
 
-- 
+- https://sebastianraschka.com/pdf/lecture-notes/stat479ss19/L10_regularization_slides.pdf
