@@ -122,7 +122,25 @@
 
 - GC is a fancy way of saying we have parallel convolutions and merging them later
 
-- 1:56
+- Spatially Separable Convolutions
+
+  - The spatial separable convolution is so named because it deals primarily with the **spatial dimensions** of an image and kernel: the width and the height. (The other dimension, the “depth” dimension, is the number of channels of each image).
+
+  - A spatial separable convolution simply divides a kernel into two, smaller kernels. The most common case would be to divide a 3x3 kernel into a 3x1 and 1x3 kernel, like so:
+
+    ​	<img src=".\assets\spatial_separable_convolution.jpeg" alt="Spatial Separable Convolution" style="zoom:67%;" />
+
+    
+
+  - The main issue with the spatial separable convolution is that not all kernels can be “separated” into two, smaller kernels. 
+
+- Depthwise Separable Convolution
+
+  - Unlike spatial separable convolutions, depthwise separable convolutions work with kernels that cannot be “factored” into two smaller kernels.
+  - The depthwise separable convolution is so named because it deals not just with the spatial dimensions, but with the depth dimension — the number of channels — as well
+  - Similar to the spatial separable convolution, a depthwise separable convolution splits a kernel into 2 separate kernels that do two convolutions: the depthwise convolution and the pointwise convolution. 
+
+- fads
 
 #### Questions
 
@@ -140,3 +158,9 @@
 - Monocular depth estimation
 
 ### References
+
+- https://www.machinecurve.com/index.php/2019/09/23/understanding-separable-convolutions/
+- [A Basic Introduction to Separable Convolutions](https://towardsdatascience.com/a-basic-introduction-to-separable-convolutions-b99ec3102728)
+- [Deep Dive into Different Types of Convolutions for Deep Learning](https://leanpub.com/convolutions-for-deep-learning/read_sample)
+- [A Comprehensive Introduction to Different Types of Convolutions in Deep Learning](https://towardsdatascience.com/a-comprehensive-introduction-to-different-types-of-convolutions-in-deep-learning-669281e58215)
+- 
