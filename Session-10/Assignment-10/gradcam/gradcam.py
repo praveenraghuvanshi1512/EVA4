@@ -180,7 +180,7 @@ class GradCAMpp(GradCAM):
 
         return saliency_map, logit
         
-def applygradcam(pil_img, model, imgdir, imgname):
+def applygradcam(pil_img, model, imgdir, imgname,tmp=[]):
     normalizer = Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
     torch_img = torch.from_numpy(np.asarray(pil_img)).permute(2, 0, 1).unsqueeze(0).float().div(255).cuda()
     torch_img = F.upsample(torch_img, size=(32, 32), mode='bilinear', align_corners=False)
@@ -199,7 +199,9 @@ def applygradcam(pil_img, model, imgdir, imgname):
     heatmap_pp, result_pp = visualize_cam(mask_pp.cpu(), torch_img.squeeze().cpu())
     
     imgs = []
-    imgs.append(torch.stack([torch_img.squeeze().cpu(), heatmap, heatmap_pp, result, result_pp], 0))
-    imgs = make_grid(torch.cat(imgs, 0), nrow=5)
-    return imgs
+    # imgs.append(torch.stack([torch_img.squeeze().cpu(), heatmap, heatmap_pp, result, result_pp], 0))
+    imgs.append(torch.stack([torch_img.squeeze().cpu(), result_pp], 0))
+    imgs = make_grid(torch.cat(imgs, 0), nrow=2)
+    tmp.append(imgs)
+    return (imgs,tmp)
     

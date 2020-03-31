@@ -1,14 +1,16 @@
 import os
 import PIL
 import torch
+import torch.nn as nn
 import torchvision
 import torchvision.transforms as transforms
 import matplotlib.pyplot as plt
 import numpy as np
 import torch.optim as optim
 import augmentation
-from utils import progress_bar
+from torch.optim.lr_scheduler import ReduceLROnPlateau
 from torchvision.utils import make_grid, save_image
+from utils import progress_bar
 
 def myfunc():
     abc = 10
@@ -40,11 +42,17 @@ def loadcifar10dataset(transform_train, transform_test):
 def getclasses():
     return ('plane', 'car', 'bird', 'cat', 'deer', 'dog', 'frog', 'horse', 'ship', 'truck')
 
-def getoptimizer(network):
-    return optim.Adam(network.parameters(), lr=0.001)
-    # return optim.SGD(network.parameters(), lr=0.001, momentum=0.9)
+def getoptimizer(network, lr, momentum=0.9):
+    return optim.SGD(network.parameters(), lr=lr, momentum=momentum)
+    
+def getscheduler(optimizer):
+    return ReduceLROnPlateau(optimizer, mode='min')
+    # return ReduceLROnPlateau(optimizer, mode='max', factor=0.5, patience=2, verbose=True)
 
-def train(network, trainloader, device, optimizer, criterion, epoch):
+def getloss():
+    return nn.CrossEntropyLoss()
+
+def train(network, trainloader, device, optimizer, criterion, trainaccuracies, trainlosses, epoch):
     print('\nEpoch: %d' % epoch)
     network.train()
     train_loss = 0
@@ -62,14 +70,19 @@ def train(network, trainloader, device, optimizer, criterion, epoch):
         _, predicted = outputs.max(1)
         total += targets.size(0)
         correct += predicted.eq(targets).sum().item()
-
+        accuracy = 100.*correct/total
+        
         progress_bar(batch_idx, len(trainloader), 'Train >> Loss: %.3f | Acc: %.3f%% (%d/%d)'
-            % (train_loss/(batch_idx+1), 100.*correct/total, correct, total))
+            % (train_loss/(batch_idx+1), accuracy, correct, total))
         
         '''print('Train:: Loss: %.3f | Acc: %.3f%% (%d/%d)'
             % (train_loss/(batch_idx+1), 100.*correct/total, correct, total))'''
-        
-def test(network, testloader, device, criterion, epoch):
+            
+    trainaccuracies.append(accuracy)
+    train_loss /= len(trainloader.dataset)
+    trainlosses.append(train_loss)
+
+def test(network, testloader, device, criterion, valaccuracies, vallosses, epoch):
     network.eval()
     test_loss = 0
     correct = 0
@@ -84,9 +97,18 @@ def test(network, testloader, device, criterion, epoch):
             _, predicted = outputs.max(1)
             total += targets.size(0)
             correct += predicted.eq(targets).sum().item()
+            accuracy = 100.*correct/total
 
             progress_bar(batch_idx, len(testloader), 'Test >> Loss: %.3f | Acc: %.3f%% (%d/%d)'
-                % (test_loss/(batch_idx+1), 100.*correct/total, correct, total))
+                % (test_loss/(batch_idx+1), accuracy, correct, total))
+            
+            # scheduler.step(effective_loss)
+    
+    valaccuracies.append(accuracy)
+    test_loss /= len(testloader.dataset)
+    vallosses.append(test_loss)
+    print(test_loss)
+    return test_loss
 
 def imshow(img):
     img = img / 2 + 0.5     # unnormalize
@@ -116,7 +138,9 @@ def display(noofimages, trainloader, classes):
         raise ValueError('The no of images must be less than ' + maximagescount)
 
     # show images
-    imshow(torchvision.utils.make_grid(images))
+    imshow(torchvision.utils.make_grid(images[:noofimages]))
 
     # display labels
     print(' '.join('%5s' % classes[labels[j]] for j in range(noofimages)))
+    
+
