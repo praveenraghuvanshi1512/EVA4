@@ -39,4 +39,15 @@
 
 ### References
 
+- https://github.com/uday96/EVA4-TSAI/blob/master/S9/EVA4_S9_Quiz.ipynb
+- https://github.com/Gaju27/eva4/blob/master/S9/models/quizDNN.py
 - 
+- [https://github.com/mounikaduddukuri/S9/blob/master/QUIZ/QUIZ9.ipynb (Links to an external site.)](https://github.com/mounikaduddukuri/S9/blob/master/QUIZ/QUIZ9.ipynb)
+- [https://github.com/abhinavdayal/EVA4/tree/master/S9 (Links to an external site.)](https://github.com/abhinavdayal/EVA4/tree/master/S9)
+- [https://github.com/gudaykiran/EVA4-Session-9/blob/master/Session9_Quiz9.ipynb (Links to an external site.)](https://github.com/gudaykiran/EVA4-Session-9/blob/master/Session9_Quiz9.ipynb)
+- [https://github.com/Lakshman511/EVA4/tree/master/s9/Quiz (Links to an external site.)](https://github.com/Lakshman511/EVA4/tree/master/s9/Quiz)
+- [https://github.com/bharathts1507/TSAI-Assignments-EVA4/blob/master/S9_Quiz.ipynb (Links to an external site.)](https://github.com/bharathts1507/TSAI-Assignments-EVA4/blob/master/S9_Quiz.ipynb)
+- [https://github.com/DrVenkataRajeshKumar/S9/blob/master/QuizS9.ipynb (Links to an external site.)](https://github.com/DrVenkataRajeshKumar/S9/blob/master/QuizS9.ipynb)
+- [https://github.com/uday96/EVA4-TSAI/blob/master/S9/EVA4_S9_Quiz.ipynb (Links to an external site.)](https://github.com/uday96/EVA4-TSAI/blob/master/S9/EVA4_S9_Quiz.ipynb)
+- [https://github.com/srilakshmiv14/EVA4-Session-9/blob/master/S9_Q9.ipynb (Links to an external site.)](https://github.com/srilakshmiv14/EVA4-Session-9/blob/master/S9_Q9.ipynb)
+- [https://colab.research.google.com/github/meenuraji/S9/blob/master/Copy_of_QuizS9.ipynb (Links to an external site.)](https://colab.research.google.com/github/meenuraji/S9/blob/master/Copy_of_QuizS9.ipynb)
