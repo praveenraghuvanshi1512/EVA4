@@ -28,13 +28,13 @@ def loadcifar10dataset(transform_train, transform_test):
     trainset = torchvision.datasets.CIFAR10(root='./data', train=True,
                                         download=True, transform=transform_train)
     
-    trainloader = torch.utils.data.DataLoader(trainset, batch_size=128,
+    trainloader = torch.utils.data.DataLoader(trainset, batch_size=512,
                                           shuffle=True, num_workers=2)
 
     testset = torchvision.datasets.CIFAR10(root='./data', train=False,
                                        download=True, transform=transform_test)
     
-    testloader = torch.utils.data.DataLoader(testset, batch_size=128,
+    testloader = torch.utils.data.DataLoader(testset, batch_size=512,
                                          shuffle=True, num_workers=2)
 
     return (trainset, trainloader, testset, testloader)
@@ -42,8 +42,8 @@ def loadcifar10dataset(transform_train, transform_test):
 def getclasses():
     return ('plane', 'car', 'bird', 'cat', 'deer', 'dog', 'frog', 'horse', 'ship', 'truck')
 
-def getoptimizer(network, lr, momentum=0.9):
-    return optim.SGD(network.parameters(), lr=lr, momentum=momentum)
+def getoptimizer(network, lr, momentum=0.9, nesterov=False, weight_decay=0):
+    return optim.SGD(network.parameters(), lr=lr, momentum=momentum, nesterov=nesterov, weight_decay=weight_decay)
     
 def getscheduler(optimizer):
     return ReduceLROnPlateau(optimizer, mode='min')
@@ -51,6 +51,7 @@ def getscheduler(optimizer):
 
 def getloss():
     return nn.CrossEntropyLoss()
+    # return nn.NLLLoss()
 
 def train(network, trainloader, device, optimizer, criterion, trainaccuracies, trainlosses, epoch):
     print('\nEpoch: %d' % epoch)
@@ -107,7 +108,7 @@ def test(network, testloader, device, criterion, valaccuracies, vallosses, epoch
     valaccuracies.append(accuracy)
     test_loss /= len(testloader.dataset)
     vallosses.append(test_loss)
-    print(test_loss)
+    
     return test_loss
 
 def imshow(img):
