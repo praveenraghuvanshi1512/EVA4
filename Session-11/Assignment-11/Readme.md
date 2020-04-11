@@ -9,7 +9,7 @@
 
 - [Colab link](https://colab.research.google.com/drive/195q1qkmfsgV26bh3kZUz2O13MjDCTbnR#scrollTo=qylKg0Cvq-L9)
 
-- Model: Custom [S11Model]()
+- Model: Custom [S11Model](https://github.com/praveenraghuvanshi1512/EVA4/blob/Session-11/Session-11/Assignment-11/models/s11model.py)
 
 - No of parameters: 6,573,120
 
@@ -192,7 +192,7 @@
     Epoch: 24
      [================================================================>]  Step: 157ms | Tot: 22s909ms | Train >> Loss: 0.133 | Acc: 98.032% (49016/50000) 98/98 
      [=============================================================>...]  Step: 45ms | Tot: 1s820ms | Test >> Loss: 0.309 | Acc: 91.040% (9104/10000) 20/20 
-    ```
+  ```
   
 - CyclicLR plot
 
