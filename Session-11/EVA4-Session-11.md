@@ -20,6 +20,7 @@
 - Next meeting: Wednesday/Thursday 8 AM
   - Review
   - Challenges, communicate immediately
+- Colab Link: https://colab.research.google.com/drive/1nGmlScyFQJ6kUGd9ER0WyfhWcEwqsiUN
 
 #### Notes 
 
@@ -50,9 +51,18 @@
 #### Further Study
 
 - Resnet Block
+- Skip Connections
+- Identity shortcut connections
 
 ### References
 
+- [Training and investigating Residual Nets](http://torch.ch/blog/2016/02/04/resnets.html)
+- [Deep learning residual networks](http://datahacker.rs/deep-learning-residual-networks/)
+- https://medium.com/deepreview/review-of-deep-residual-learning-for-image-recognition-a92955acf3aa
+
+#### Sample
+
+- [https://github.com/mshilpaa/EVA4/blob/master/Session%2011/extras/s11.ipynb](https://github.com/mshilpaa/EVA4/blob/master/Session 11/extras/s11.ipynb)
 - 
 
 
