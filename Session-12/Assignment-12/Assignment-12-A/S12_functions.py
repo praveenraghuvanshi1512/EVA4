@@ -8,9 +8,19 @@ import matplotlib.pyplot as plt
 import numpy as np
 import torch.optim as optim
 import augmentation
+
+from torchvision import datasets
 from torch.optim.lr_scheduler import ReduceLROnPlateau
 from torchvision.utils import make_grid, save_image
 from utils import progress_bar
+
+import io,glob,os,time,random
+from shutil import move
+from os.path import join
+from os import listdir,rmdir
+
+import scipy.ndimage as nd
+import numpy as np
 
 def myfunc():
     abc = 10
@@ -38,6 +48,76 @@ def loadcifar10dataset(transform_train, transform_test):
                                          shuffle=True, num_workers=2)
 
     return (trainset, trainloader, testset, testloader)
+    
+def loadimagenetdataset(train_dir, test_dir, transform_train, transform_test, batch_size=512):
+    trainset = datasets.ImageFolder(train_dir, 
+                                    transform=transform_train)
+    
+    testset = datasets.ImageFolder(test_dir, 
+                                    transform=transform_test)
+    
+    print('Preparing data loaders ...')
+    trainloader = torch.utils.data.DataLoader(trainset, batch_size=batch_size, 
+                                                    shuffle=True, num_workers=2)
+    
+    testloader = torch.utils.data.DataLoader(testset, batch_size=batch_size, 
+                                                    shuffle=True, num_workers=2)
+                                                    
+    return (trainset, trainloader, testset, testloader)
+    
+def splittinyimagedataset():
+    target_folder = './tiny-imagenet-200/val/'
+    dest_folder = './tiny-imagenet-200/train/' 
+
+    val_dict={}
+
+    with open('./tiny-imagenet-200/val/val_annotations.txt','r') as f:
+        for line in f.readlines():
+            splitline = line.split('\t')
+            val_dict[splitline[0]] = splitline[1]
+        paths = glob.glob('./tiny-imagenet-200/val/images/*')
+      
+        for path in paths:
+            file = path.split('/')[-1].split('\\')[-1]
+            folder = val_dict[file]
+            dest = dest_folder + str(folder) + '/images/' + str(file)
+            move(path,dest)
+            
+    target_folder = './tiny-imagenet-200/train/'
+    train_folder = './tiny-imagenet-200/train_set/'
+    test_folder = './tiny-imagenet-200/test_set/'
+     
+    os.mkdir(train_folder)
+    os.mkdir(test_folder)
+     
+    paths = glob.glob('./tiny-imagenet-200/train/*')
+ 
+    for path in paths:
+        folder = path.split('/')[-1].split('\\')[-1]
+        source = target_folder + str(folder + '/images/')
+        train_dest = train_folder + str(folder + '/')
+        test_dest = test_folder + str(folder + '/')
+        os.mkdir(train_dest)
+        os.mkdir(test_dest)
+        images = glob.glob(source + str('*'))
+        #print(len(images))
+        # making random
+        random.shuffle(images)
+      
+        test_imgs = images[:165].copy()
+        train_imgs = images[165:].copy()
+      
+        # moving 30% for validation
+        for image in test_imgs:
+          file = image.split('/')[-1].split('\\')[-1]
+          dest = test_dest + str(file)
+          move(image, dest)
+      
+        # moving 70% for training
+        for image in train_imgs:
+          file = image.split('/')[-1].split('\\')[-1]
+          dest = train_dest + str(file)
+          move(image, dest)
 
 def getclasses():
     return ('plane', 'car', 'bird', 'cat', 'deer', 'dog', 'frog', 'horse', 'ship', 'truck')

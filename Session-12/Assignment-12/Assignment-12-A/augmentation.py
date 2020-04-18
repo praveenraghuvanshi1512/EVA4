@@ -7,10 +7,13 @@ class AlbumentationTransformTrain:
     def __init__(self):
         
         self.transform = A.Compose([
-            A.PadIfNeeded(36,36, p=1.),
-            A.RandomCrop(32,32, p=1.),
+            # A.PadIfNeeded(36,36, p=1.),
+            A.RandomCrop(64,64, p=1.),
             A.HorizontalFlip(p=1),
-            A.Cutout(num_holes=2, max_h_size=8, max_w_size=8, fill_value=[0.4914, 0.4822, 0.4465], always_apply=False, p=0.5),
+            A.Rotate(limit=10),
+            A.ShiftScaleRotate(),
+            A.Cutout(num_holes=1, max_h_size=16, max_w_size=16, fill_value=[0.4914, 0.4822, 0.4465], always_apply=False, p=0.5),
+            #A.Cutout(num_holes=2, max_h_size=8, max_w_size=8, fill_value=[0.4914, 0.4822, 0.4465], always_apply=False, p=0.5),
             A.Normalize((0.4914, 0.4822, 0.4465), (0.2023, 0.1994, 0.2010)),
             T.ToTensor()
         ])

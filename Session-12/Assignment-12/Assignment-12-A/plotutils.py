@@ -23,7 +23,10 @@ def plotimages(device, classes, dataloader, numofimages=20):
     fig = plt.figure(figsize=(10,9))
     for data, target in dataloader:
         data, target = data.to(device), target.to(device)
+        print(len(target))
         for index, label in enumerate(target):
+          print(index)
+          print(label)
           title = "{}".format(classes[label.item()])
           #print(title)
           ax = fig.add_subplot(4, 5, counter+1, xticks=[], yticks=[])

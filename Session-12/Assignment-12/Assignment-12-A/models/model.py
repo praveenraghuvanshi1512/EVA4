@@ -1,5 +1,7 @@
+import torch
 import torch.nn as nn
 import torch.nn.functional as F
+import torchvision.models as models
 
 class Net(nn.Module):
     def __init__(self):
@@ -142,5 +144,12 @@ class ResNet(nn.Module):
         return out
 
 
-def resnet18():
-    return ResNet(BasicBlock, [2,2,2,2])
+def resnet18(numberofClasses=10):
+    model_ft = models.resnet18(pretrained=False, num_classes=numberofClasses)
+    #Finetune Final few layers to adjust for tiny imagenet input
+    model_ft.avgpool = nn.AdaptiveAvgPool2d(1)
+    # model_ft.fc.out_features = numberofClasses
+    device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+    model_ft = model_ft.to(device)
+    return model_ft
+    # return ResNet(BasicBlock, [2,2,2,2], num_classes=numberofClasses)
