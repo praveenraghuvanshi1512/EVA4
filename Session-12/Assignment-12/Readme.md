@@ -368,3 +368,14 @@
     - Learning rate: 0.03
     - Momentum: 0.9
     - Scheduler: One Cycle Policy
+
+### Assignment-12-B
+
+- [Github Directory](https://github.com/praveenraghuvanshi1512/EVA4/tree/Session-12/Session-12/Assignment-12/Assignment-12-A)
+- Resources
+  - [50 Dogs images]()
+  - [Annotated Json file]()
+  - [Bounding Box Data]()
+- [Notebook - EVA-4-S12-A-Praveen-Raghuvanshi-Main-51-77-Final.ipynb]()
+- Explanation
+  - 
