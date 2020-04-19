@@ -2,7 +2,7 @@
 
 **Team Members**
 
-- Tushankant Biswal (Tusharkanta_biswal@stragure.com) 
+- Tusharkant Biswal (Tusharkanta_biswal@stragure.com) 
 - V N G Suman Kanukollu (sumankanukollu@gmail.com)
 - Praveen Raghuvanshi (praveenraghuvanshi@gmail.com)
 
