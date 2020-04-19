@@ -3,7 +3,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import torchvision
 import torchvision.transforms as transforms
-from torchvision.utils import save_image
+from torchvision.utils import save_image, make_grid
 
 def imshow(img):
     img = img / 2 + 0.5     # unnormalize
@@ -41,6 +41,14 @@ def plotimages(device, classes, dataloader, numofimages=20):
         if(counter==numofimages):
             break
     return
+
+def showbatchimages(dataloader,numofimages=10,imagesperow=5):
+    for images, labels in dataloader:
+        fig, ax = plt.subplots(figsize=(26, 26))
+        ax.set_xticks([]); ax.set_yticks([])
+        ax.imshow(make_grid(images[:numofimages], imagesperow).permute(1, 2, 0))
+        break
+
 
 def plotmetrics(trainaccuracies, testaccuracies, trainlosses, testlosses, savefilename):
     print(len(trainaccuracies))

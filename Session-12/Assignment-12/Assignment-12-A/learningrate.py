@@ -33,10 +33,10 @@ def performLRRangeTest(model, optimizer, criterion, device, trainloader, end_lr,
     lr_finder.reset()
     return max_lr
     
-def getSchdeduler(optimizer, max_lr, epochs, steps_per_epoch, pct_start):
-    return OneCycleLR(optimizer, max_lr = max_lr, total_steps=None, epochs=
+def getSchdeduler(optimizer, max_lr, total_steps=None, epochs=None, steps_per_epoch=None, pct_start=0.25):
+    return OneCycleLR(optimizer, max_lr = max_lr, total_steps=total_steps, epochs=
                        epochs, steps_per_epoch=steps_per_epoch, pct_start=pct_start, anneal_strategy='linear', 
-                       cycle_momentum=False, base_momentum=0.85, max_momentum=0.95, div_factor=10.0, final_div_factor=1)
+                       cycle_momentum=False, base_momentum=0.85, max_momentum=0.95, div_factor=10.0, final_div_factor=100)
                        
 def getlr(optimizer):
     for param_group in optimizer.param_groups:
