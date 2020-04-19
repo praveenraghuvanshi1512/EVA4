@@ -19,7 +19,7 @@
 
 - No of Epochs : 50
 
-- Best Test Acc: 52.270%
+- Best Test Acc: 51.77%
 
 - Code Modularity
 
