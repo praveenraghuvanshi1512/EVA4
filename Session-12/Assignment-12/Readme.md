@@ -11,7 +11,10 @@
 ### Assignment 12-A
 
 - [Github Directory](https://github.com/praveenraghuvanshi1512/EVA4/tree/Session-12/Session-12/Assignment-12/Assignment-12-A)
+
 - [Colab link](https://drive.google.com/open?id=1sxSJ5DM0HL50HREHY19GRPmRM7wtpDH6)
+
+- [Notebook - EVA-4-S12-A-Praveen-Raghuvanshi-Main-51-77-Final.ipynb](https://github.com/praveenraghuvanshi1512/EVA4/blob/master/Session-12/Assignment-12/Assignment-12-A/EVA_4_S12_A_Praveen_Raghuvanshi_Main_51_77_Final.ipynb)
 
 - Model: [ResNet18](https://github.com/praveenraghuvanshi1512/EVA4/blob/Session-12/Session-12/Assignment-12/Assignment-12-A/models/model.py) 
 
