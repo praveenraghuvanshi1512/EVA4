@@ -5,14 +5,13 @@
 - Tusharkant Biswal (Tusharkanta_biswal@stragure.com) 
 - V N G Suman Kanukollu (sumankanukollu@gmail.com)
 - Praveen Raghuvanshi (praveenraghuvanshi@gmail.com)
-
-- [Github Directory](https://github.com/praveenraghuvanshi1512/EVA4/tree/Session-12/Session-12/Assignment-12)
+- [Github Directory - Assignment -13](https://github.com/praveenraghuvanshi1512/EVA4/tree/Session-13/Session-13/Assignment-13)
 
 ### Assignment 13-1
 
-- [Github Directory](https://github.com/praveenraghuvanshi1512/EVA4/tree/Session-12/Session-12/Assignment-12/Assignment-12-A)
+- [Github Directory - Assignment-13-1](https://github.com/praveenraghuvanshi1512/EVA4/tree/Session-13/Session-13/Assignment-13/Assignment-13-1)
 
-- [Notebook - EVA-4-S13-A13-1-Praveen-raghuvanshi.ipynb](https://github.com/praveenraghuvanshi1512/EVA4/blob/master/Session-12/Assignment-12/Assignment-12-A/EVA_4_S12_A_Praveen_Raghuvanshi_Main_51_77_Final.ipynb)
+- [Notebook - EVA-4-S13-A13-1-Praveen-raghuvanshi.ipynb](https://github.com/praveenraghuvanshi1512/EVA4/blob/Session-13/Session-13/Assignment-13/Assignment-13-1/EVA-4-S13-A13-1-Praveen-raghuvanshi.ipynb)
 
 - Original Image
 
@@ -22,4 +21,10 @@
 
   <img src=".\Assignment-13-1\praveen-cup-predicted.png" alt="Object Detected - Person and Cake" style="zoom:100%;" />
 
-- 
+- **Submission**
+
+  - Upload the link to GitHub implementation of this : https://github.com/praveenraghuvanshi1512/EVA4/blob/Session-13/Session-13/Assignment-13/Assignment-13-1/EVA-4-S13-A13-1-Praveen-raghuvanshi.ipynb
+
+  - Upload the annotated image by YOLO : https://github.com/praveenraghuvanshi1512/EVA4/blob/Session-13/Session-13/Assignment-13/Assignment-13-1/praveen-cup-predicted.png
+
+    
