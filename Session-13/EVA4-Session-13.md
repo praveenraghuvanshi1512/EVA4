@@ -28,12 +28,16 @@
 
 -  Others
 
-- 
+   - Different metrices for determining a model such as Precision/Recall, F1-Score, ROC, Lift and gain, 
 
 
 #### Questions
 
 - Why MP of 4 in last layer of assignment?
+- How to get Ground Truth and Predicted Bounding Box(BB)
+- How YOLO works?
+- How is it that when we say YOLO does process only once.
+  - *the model predicts the output of all the grids in just one forward pass of input image through ConvNet*
 - 
 
 #### Further Study
