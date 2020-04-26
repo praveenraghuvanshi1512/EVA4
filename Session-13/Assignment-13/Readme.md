@@ -37,7 +37,7 @@ OpenCV Yolo: [SOURCE (https://pysource.com/2019/06/27/yolo-object-detection-usin
 
   - Upload the link to GitHub implementation of this : https://github.com/praveenraghuvanshi1512/EVA4/blob/Session-13/Session-13/Assignment-13/Assignment-13-1/EVA-4-S13-A13-1-Praveen-raghuvanshi.ipynb
 
-  - Upload the annotated image by YOLO : https://github.com/praveenraghuvanshi1512/EVA4/blob/Session-13/Session-13/Assignment-13/Assignment-13-1/praveen-cup-predicted.png
+  - Upload the annotated image by YOLO : https://github.com/praveenraghuvanshi1512/EVA4/blob/master/Session-13/Assignment-13/Assignment-13-1/praveen-cup-predicted.jpg
 
 
 
