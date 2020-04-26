@@ -27,11 +27,11 @@ OpenCV Yolo: [SOURCE (https://pysource.com/2019/06/27/yolo-object-detection-usin
 
 - Original Image
 
-  <img src=".\Assignment-13-1\praveen-cup.png" alt="Original Image - Praveen with Cup in hand" style="zoom:60%;" />
+  <img src=".\Assignment-13-1\praveen-cup.jpg" alt="Original Image - Praveen with Cup in hand" style="zoom:60%;" />
 
 - Objects Detected in Image
 
-  <img src=".\Assignment-13-1\praveen-cup-predicted.png" alt="Object Detected - Person and Cake" style="zoom:100%;" />
+  <img src=".\Assignment-13-1\praveen-cup-predicted.jpg" alt="Object Detected - Person and Cake" style="zoom:100%;" />
 
 - **Submission**
 
