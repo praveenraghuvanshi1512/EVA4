@@ -115,7 +115,7 @@ Training Custom Dataset on Colab for YoloV3
 - Submission
   - Share the link to your GitHub project with the steps as mentioned above (for YoloV3 training on Colab)
     - Github Repo: https://github.com/praveenraghuvanshi1512/EVA4/tree/master/Session-13/Assignment-13
-  - Training Logs : [Logs](Assignment-13-2/train.txt)
+    - Training Logs : [Logs](Assignment-13-2/train.txt)
   - Share the link of your YouTube video (your object annotated by your YoloV3 trained model) - https://www.youtube.com/watch?v=7_lH-jFB0Cg
   
 - Credits:
