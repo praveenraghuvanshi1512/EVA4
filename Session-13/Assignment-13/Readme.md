@@ -101,7 +101,7 @@ Training Custom Dataset on Colab for YoloV3
   - Sample True Bounding Box
   - Sample Predicted Bounding Box
   - [Youtube Video (Duration: 02:34 mins)](https://www.youtube.com/watch?v=7_lH-jFB0Cg)
-  - [Logs](./Assignment-13-2/train.log)
+  - [Logs](Assignment-13-2/train.txt)
   
   
   
