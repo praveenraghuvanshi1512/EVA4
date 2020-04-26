@@ -7,7 +7,7 @@
 - Harsha Vardhan (harshavardhan.ma@gmail.com)
 - Praveen Raghuvanshi (praveenraghuvanshi@gmail.com)
 
-[Github Directory - Assignment -13](https://github.com/praveenraghuvanshi1512/EVA4/tree/Session-13/Session-13/Assignment-13)
+[Github Directory - Assignment -13](https://github.com/praveenraghuvanshi1512/EVA4/tree/master/Session-13/Assignment-13)
 
 ### Assignment 13-1
 
@@ -21,9 +21,9 @@ OpenCV Yolo: [SOURCE (https://pysource.com/2019/06/27/yolo-object-detection-usin
 
 #### Solution
 
-- [Github Directory - Assignment-13-1](https://github.com/praveenraghuvanshi1512/EVA4/tree/Session-13/Session-13/Assignment-13/Assignment-13-1)
+- [Github Directory - Assignment-13-1](https://github.com/praveenraghuvanshi1512/EVA4/tree/master/Session-13/Assignment-13/Assignment-13-1)
 
-- [Notebook - EVA-4-S13-A13-1-Praveen-raghuvanshi.ipynb](https://github.com/praveenraghuvanshi1512/EVA4/blob/Session-13/Session-13/Assignment-13/Assignment-13-1/EVA-4-S13-A13-1-Praveen-raghuvanshi.ipynb)
+- [Notebook - EVA-4-S13-A13-1-Praveen-raghuvanshi.ipynb](https://github.com/praveenraghuvanshi1512/EVA4/blob/master/Session-13/Assignment-13/Assignment-13-1/EVA-4-S13-A13-1-Praveen-raghuvanshi.ipynb)
 
 - Original Image
 
@@ -66,7 +66,7 @@ Training Custom Dataset on Colab for YoloV3
 
 - Team members are mentioned at the top
 
-- Assignment has been executed on a local machine and colab is not used.
+- Assignment has been executed on a local GPU machine and colab is not used.
 
 - We took object detection of cartoon character '**Tom**' from Tom and Jerry tales
 
@@ -99,10 +99,6 @@ Training Custom Dataset on Colab for YoloV3
     - [Labels](Assignment-13-2/dataset/fulldataset/labels)
     
   - Custom YoloV3 code [repository](https://github.com/praveenraghuvanshi1512/EVA4/tree/master/Session-13/Assignment-13)
-  
-  - Sample True Bounding Box
-  
-  - Sample Predicted Bounding Box
   
   - [Youtube Video (Duration: 02:34 mins)](https://www.youtube.com/watch?v=7_lH-jFB0Cg)
   
