@@ -95,8 +95,8 @@ Training Custom Dataset on Colab for YoloV3
   
 - Resources
   - Dataset
-    - [Images](.\Assignment-13-2\dataset\fulldataset\images)
-    - [Labels](.\Assignment-13-2\dataset\fulldataset\labels)
+    - [Images](Assignment-13-2\dataset\fulldataset\images)
+    - [Labels](Assignment-13-2\dataset\fulldataset\labels)
   - Custom YoloV3 code repository
   - Sample True Bounding Box
   - Sample Predicted Bounding Box
