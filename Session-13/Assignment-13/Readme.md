@@ -41,7 +41,7 @@ OpenCV Yolo: [SOURCE (https://pysource.com/2019/06/27/yolo-object-detection-usin
 
 
 
-    ### Assignment-13-2
+### Assignment-13-2
 
 Training Custom Dataset on Colab for YoloV3
 
@@ -63,13 +63,23 @@ Training Custom Dataset on Colab for YoloV3
 #### Solution
 
 - This assignment is done as a GROUP and has same submission by all team members. 
+
 - Team members are mentioned at the top
+
 - Assignment has been executed on a local machine and colab is not used.
+
 - We took object detection of cartoon character '**Tom**' from Tom and Jerry tales
+
 - Extracted frames from video for dataset
-- Manually annotated 1465 images covering whole body of character 'Tom'
-- Ran for 300 epochs
-- Classes : 1 - tom
+
+- Manually annotated 1466 images covering whole body of character '**Tom**'
+
+- Epochs: 300 
+
+- Training Time: 07.541 hours
+
+- Classes : 1 - **tom**
+
 - Steps
   - Made changes to the cfg file
     - Search for 'filters=255' (you should get entries entries). Change 255 to 18 = (4+1+1)*3
@@ -82,17 +92,24 @@ Training Custom Dataset on Colab for YoloV3
   - Trained model for 300 epochs 
   - Ran detect.py to generate frames for predicted bounding boxes
   - Tested model with last.pt file generated on new video and uploaded it to Youtube.
+  
 - Resources
-  - Custom Dataset Link
+  - Dataset
+    - [Images](.\Assignment-13-2\dataset\fulldataset\images)
+    - [Labels](.\Assignment-13-2\dataset\fulldataset\labels)
   - Custom YoloV3 code repository
-  - Weights link
-  - Classnames file
   - Sample True Bounding Box
   - Sample Predicted Bounding Box
-  - Youtube Video (Duration: --)
-  - Logs
-- Credits:
-  - [The School of AI (YoloV3)](https://github.com/theschoolofai/YoloV3)
+  - [Youtube Video (Duration: 02:34 mins)](https://www.youtube.com/watch?v=7_lH-jFB0Cg)
+  - [Logs](./Assignment-13-2/train.log)
+  
+  
+  
 - Submission
   - Share the link to your GitHub project with the steps as mentioned above (for YoloV3 training on Colab)
-  - Share the link of your YouTube video (your object annotated by your YoloV3 trained model).
+    - 
+  - Share the link of your YouTube video (your object annotated by your YoloV3 trained model) - https://www.youtube.com/watch?v=7_lH-jFB0Cg
+  
+- Credits:
+
+  - [The School of AI (YoloV3)](https://github.com/theschoolofai/YoloV3)
