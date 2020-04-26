@@ -97,10 +97,17 @@ Training Custom Dataset on Colab for YoloV3
   - Dataset
     - [Images](Assignment-13-2/dataset/fulldataset/images)
     - [Labels](Assignment-13-2/dataset/fulldataset/labels)
+    
   - Custom YoloV3 code repository
+  
   - Sample True Bounding Box
+  
   - Sample Predicted Bounding Box
+  
   - [Youtube Video (Duration: 02:34 mins)](https://www.youtube.com/watch?v=7_lH-jFB0Cg)
+  
+    [![RIP Gene Deitch | Yolov3 Object Detection | Tom Detector](http://img.youtube.com/vi/7_lH-jFB0Cg/0.jpg)](https://www.youtube.com/watch?v=7_lH-jFB0Cg)
+  
   - [Logs](Assignment-13-2/train.txt)
   
   
