@@ -124,55 +124,84 @@ Questions asked in 15A:
         - BG-FG Mask Images : 400k
         - Dense Depth images for all BG-GF and BG-FG Flip : 400k
      2. The total size of the dataset
+        
         - 1200K
      3. Mean/STD values for your fg_bg, masks and depth images
-        - ???
-
+        
+        - **fg_bg images**
+        - Red Channel mean of bg_fg images 0.5360746
+          - Green Channel mean of bg_fg images 0.46813193
+        - Blue Channel mean of bg_fg images 0.3992631
+          - Red Channel std dev of bg_fg images 0.25605327
+        - Blue Channel std dev of bg_fg images 0.24445891
+          - Green Channel std dev of bg_fg images 0.2392703
+        - **fg_bg flip images**
+          - Red Channel mean of bg_fg_flip images 0.5360829
+          - Green Channel mean of bg_fg_flip images 0.46815184
+          - Blue Channel mean of bg_fg_flip images 0.39928764
+          - Red Channel std dev of bg_fg_flip images 0.25606075
+          - Blue Channel std dev of bg_fg_flip images 0.24446595
+          - Green Channel std dev of bg_fg_flip images 0.23927386
+        - **bg_fg_mask images**
+          - mean of bg_fg_mask images: 0.054658275
+          - std dev of bg_fg_mask images: 0.22315167
+        - **bg_fg_flipmask**
+          - mean of bg_fg_mask images: 0.054657616
+          - std dev of bg_fg_mask images: 0.2231518
+        - **depth map images:**
+          - Red Channel mean of depth_map images 0.82477474
+          - Green Channel mean of depth_map images 0.61797315
+          - Blue Channel mean of depth_map images 0.64635575 
+          - Red Channel std dev of depth_map images 0.27929935 
+          - Blue Channel std dev of depth_map images 0.3886217 
+          - Green Channel std dev of depth_map images 0.3228312
+        
+     
   3. Show your dataset the way I have shown above in this readme
-
+  
      1. Select "scene" images. Like the front of shops, etc. We call this background.
-
-        <img src=".\assets\bg_10.png" alt="BG" style="zoom:150%;" />
-
-     2. Find or make 100 images of objects with transparent background. Use GIMP. We call this foreground.
-
-        <img src=".\assets\fg_10.png" alt="image-20200510222747744" style="zoom:150%;" />
-
-     3. Create 100 Masks for the above image. Use GIMP
-
-        <img src=".\assets\fg_mask_10.png" alt="image-20200510223035271" style="zoom:150%;" />
-
-     4. Overlay the foreground on top or background randomly. Flip foreground as well. We call this fg_bg
-
-        - Normal
-
-          <img src=".\assets\fg_bg_10.png" alt="FG_BG" style="zoom:150%;" />
-
-        - Flipped
-
-          <img src=".\assets\fg_bg_10_flipped.png" alt="FG_BG_Flipped" style="zoom:150%;" />
-
-     5. Don't forget to create equivalent masks for these images:
-
-        - Normal
-
-          <img src=".\assets\fg_bg_mask_overlay.png" alt="FG_BG_Overlay" style="zoom:150%;" />
-
-        - Flipped
-
-          <img src=".\assets\bg_fg_mask_flipped.png" alt="." style="zoom:150%;" />
-
-     6. Use this or similar [Depth Models (Links to an external site.)](https://github.com/ialhashim/DenseDepth/blob/master/DenseDepth.ipynb) to create depth maps for the fg_bg images:
-
-        <img src=".\assets\densedepth_10.png" alt="DenseDepth" style="zoom:150%;" />
-
-  4. Explain how you created your dataset
-
-     1. how were fg created with transparency
+  
+      <img src=".\assets\bg_10.png" alt="BG" style="zoom:150%;" />
+  
+   2. Find or make 100 images of objects with transparent background. Use GIMP. We call this foreground.
+  
+      <img src=".\assets\fg_10.png" alt="image-20200510222747744" style="zoom:150%;" />
+  
+   3. Create 100 Masks for the above image. Use GIMP
+  
+      <img src=".\assets\fg_mask_10.png" alt="image-20200510223035271" style="zoom:150%;" />
+  
+   4. Overlay the foreground on top or background randomly. Flip foreground as well. We call this fg_bg
+  
+      - Normal
+  
+        <img src=".\assets\fg_bg_10.png" alt="FG_BG" style="zoom:150%;" />
+  
+      - Flipped
+  
+        <img src=".\assets\fg_bg_10_flipped.png" alt="FG_BG_Flipped" style="zoom:150%;" />
+  
+   5. Don't forget to create equivalent masks for these images:
+  
+      - Normal
+  
+        <img src=".\assets\fg_bg_mask_overlay.png" alt="FG_BG_Overlay" style="zoom:150%;" />
+  
+      - Flipped
+  
+        <img src=".\assets\bg_fg_mask_flipped.png" alt="." style="zoom:150%;" />
+  
+   6. Use this or similar [Depth Models (Links to an external site.)](https://github.com/ialhashim/DenseDepth/blob/master/DenseDepth.ipynb) to create depth maps for the fg_bg images:
+  
+      <img src=".\assets\densedepth_10.png" alt="DenseDepth" style="zoom:150%;" />
+  
+4. Explain how you created your dataset
+  
+   1. how were fg created with transparency
         - Power point has been used for creating transparent Images
-     2. how were masks created for fgs
+   2. how were masks created for fgs
         - Image Magic has been used to generate masks
-     3. how did you overlay the fg over bg and created 20 variants
+   3. how did you overlay the fg over bg and created 20 variants
         - PIL module has been used to overlay and flip for 20-variants
      4. how did you create your depth images?
         - Used shared DenseDepth git hub repo
@@ -189,9 +218,9 @@ Questions asked in 15A:
               - Made changes in utils.py w.r.t display_images and loading images.
               - Changes made to save the depthmap images directly to google drive with file names (corelated with dataset name like..(x)_bg_(y)_fg.jpg)
               - Without any issues we are able to process 5K images in 8-10 minutes
-
   
-
+  
+  
 - **Submission**
 
   1. Share the link to the readme file for your Assignment 15A. Read the assignment again to make sure you do not miss any part which you need to explain. -2500
