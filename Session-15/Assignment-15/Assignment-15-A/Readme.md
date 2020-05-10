@@ -84,7 +84,7 @@ Questions asked in 15A:
           | 1    | Background (BG) - JPG                              | 100   | 224 x 224 | - Library(50) + Classroom(50)                                |
           | 2    | Foreground (FG) - JPG                              | 100   | 96 x 96   | Dog breed (Chihuahua, golden_retriever, German_shepherd, Eskimo_dog) |
           | 3    | Mask - FG                                          | 100   | 96 x 96   |                                                              |
-          | 4    | FG on BG + FG Flip on BG                           | 20000 | 224 x 224 | ???                                                          |
+          | 4    | FG on BG + FG Flip on BG                           | 20000 | 224 x 224 |                                                              |
           | 5    | Random placement 1-FG on 1-BG at 20 locations      | 20    | 224 x 224 |                                                              |
           | 6    | Random placement 1-FG-Flip on 1-BG at 20 locations | 20    | 224 x 224 |                                                              |
         | 7    | BG-FG Images                                       | 400K  | 224 x 224 | Includes FG and FG-Flip                                      |
@@ -218,9 +218,9 @@ Questions asked in 15A:
               - Made changes in utils.py w.r.t display_images and loading images.
               - Changes made to save the depthmap images directly to google drive with file names (corelated with dataset name like..(x)_bg_(y)_fg.jpg)
               - Without any issues we are able to process 5K images in 8-10 minutes
+
   
-  
-  
+
 - **Submission**
 
   1. Share the link to the readme file for your Assignment 15A. Read the assignment again to make sure you do not miss any part which you need to explain. -2500
