@@ -10,7 +10,7 @@
 
 ### Problem
 
-<img src=".\assets\15-A-problem.jpg" alt="15-A-problem" style="zoom:67%;" />
+<img src=".\assets\15-A-problem.png" alt="15-A-problem" style="zoom:67%;" />
 
  You must have 100 background, 100x2 (including flip), and you randomly place the foreground on the background 20 times, you have in total 100x200x20 images. 
 
@@ -130,7 +130,41 @@ Questions asked in 15A:
 
   3. Show your dataset the way I have shown above in this readme
 
-     - IMAGE
+     1. Select "scene" images. Like the front of shops, etc. We call this background.
+
+        <img src=".\assets\bg_10.png" alt="BG" style="zoom:150%;" />
+
+     2. Find or make 100 images of objects with transparent background. Use GIMP. We call this foreground.
+
+        <img src=".\assets\fg_10.png" alt="image-20200510222747744" style="zoom:150%;" />
+
+     3. Create 100 Masks for the above image. Use GIMP
+
+        <img src=".\assets\fg_mask_10.png" alt="image-20200510223035271" style="zoom:150%;" />
+
+     4. Overlay the foreground on top or background randomly. Flip foreground as well. We call this fg_bg
+
+        - Normal
+
+          <img src=".\assets\fg_bg_10.png" alt="FG_BG" style="zoom:150%;" />
+
+        - Flipped
+
+          <img src=".\assets\fg_bg_10_flipped.png" alt="FG_BG_Flipped" style="zoom:150%;" />
+
+     5. Don't forget to create equivalent masks for these images:
+
+        - Normal
+
+          <img src=".\assets\fg_bg_mask_overlay.png" alt="FG_BG_Overlay" style="zoom:150%;" />
+
+        - Flipped
+
+          <img src=".\assets\bg_fg_mask_flipped.png" alt="." style="zoom:150%;" />
+
+     6. Use this or similar [Depth Models (Links to an external site.)](https://github.com/ialhashim/DenseDepth/blob/master/DenseDepth.ipynb) to create depth maps for the fg_bg images:
+
+        ![image-20200510224224592](.\assets\densedepth_10.png)
 
   4. Explain how you created your dataset
 
@@ -166,6 +200,6 @@ Questions asked in 15A:
   2. Share the link to your notebook which you used to create this dataset. We are expecting to see how you manipulated images, overlay code, depth predictions. -250
      - Github: https://github.com/praveenraghuvanshi1512/EVA4/blob/master/Session-15/Assignment-15/Assignment-15-A/EVA_4_S15_A15_A_DenseDepth.ipynb
 - Colab: https://colab.research.google.com/drive/18LZZYmjUTxvxkuXSeZj_duevLTTZ-wMo?usp=sharing
-     
+  
   3. Surprise question. -Surprise Marks. 
      - Hopefully Rohan will bless us :-)
