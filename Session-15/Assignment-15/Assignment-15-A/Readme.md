@@ -199,7 +199,7 @@ Questions asked in 15A:
 
   2. Share the link to your notebook which you used to create this dataset. We are expecting to see how you manipulated images, overlay code, depth predictions. -250
      - Github: https://github.com/praveenraghuvanshi1512/EVA4/blob/master/Session-15/Assignment-15/Assignment-15-A/EVA_4_S15_A15_A_DenseDepth.ipynb
-- Colab: https://colab.research.google.com/drive/18LZZYmjUTxvxkuXSeZj_duevLTTZ-wMo?usp=sharing
+     - Colab: https://colab.research.google.com/drive/18LZZYmjUTxvxkuXSeZj_duevLTTZ-wMo?usp=sharing
   
   3. Surprise question. -Surprise Marks. 
      - Hopefully Rohan will bless us :-)
