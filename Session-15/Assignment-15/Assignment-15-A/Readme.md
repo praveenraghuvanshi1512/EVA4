@@ -1,4 +1,4 @@
-# EVA4 Assignment 15A - Praveen Raghuvanshi
+# EVA4 Assignment 15-A - Praveen Raghuvanshi
 
 **Team Members**
 
@@ -6,7 +6,7 @@
 - V N G Suman Kanukollu (sumankanukollu@gmail.com)
 - Praveen Raghuvanshi (praveenraghuvanshi@gmail.com)
 
-[Github Directory - Assignment -15-A](https://github.com/praveenraghuvanshi1512/EVA4/tree/master/Session-14/Assignment-15-A)
+[Github Directory - Assignment -15-A](https://github.com/praveenraghuvanshi1512/EVA4/tree/master/Session-15/Assignment-15/Assignment-15-A)
 
 ### Problem
 
@@ -76,9 +76,9 @@ Questions asked in 15A:
   2. Add your dataset statistics:
 
      1. Kinds of images (fg, bg, fg_bg, masks, depth)
+        
           
-          
-          
+        
           | S.No | Type                                               | Count | Size      | Remarks                                                      |
           | ---- | -------------------------------------------------- | ----- | --------- | ------------------------------------------------------------ |
           | 1    | Background (BG) - JPG                              | 100   | 224 x 224 | - Library(50) + Classroom(50)                                |
@@ -95,7 +95,7 @@ Questions asked in 15A:
      
 
      - Image Naming structure :
-         
+       
          | S.No | Format                 | Remarks                                                      |
          | ---- | ---------------------- | ------------------------------------------------------------ |
          | 1    | (x)_bg_(y)_fg          | on BG Image (x) FG Image (y) is overlaid                     |
@@ -161,10 +161,11 @@ Questions asked in 15A:
 - **Submission**
 
   1. Share the link to the readme file for your Assignment 15A. Read the assignment again to make sure you do not miss any part which you need to explain. -2500
-     - 
+     - https://github.com/praveenraghuvanshi1512/EVA4/tree/master/Session-15/Assignment-15/Assignment-15-A
 
   2. Share the link to your notebook which you used to create this dataset. We are expecting to see how you manipulated images, overlay code, depth predictions. -250
-     - 
-
+     - Github: https://github.com/praveenraghuvanshi1512/EVA4/blob/master/Session-15/Assignment-15/Assignment-15-A/EVA_4_S15_A15_A_DenseDepth.ipynb
+- Colab: https://colab.research.google.com/drive/18LZZYmjUTxvxkuXSeZj_duevLTTZ-wMo?usp=sharing
+     
   3. Surprise question. -Surprise Marks. 
      - Hopefully Rohan will bless us :-)
