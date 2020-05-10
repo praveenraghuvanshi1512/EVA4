@@ -164,7 +164,7 @@ Questions asked in 15A:
 
      6. Use this or similar [Depth Models (Links to an external site.)](https://github.com/ialhashim/DenseDepth/blob/master/DenseDepth.ipynb) to create depth maps for the fg_bg images:
 
-        ![image-20200510224224592](.\assets\densedepth_10.png)
+        <img src=".\assets\densedepth_10.png" alt="DenseDepth" style="zoom:150%;" />
 
   4. Explain how you created your dataset
 
