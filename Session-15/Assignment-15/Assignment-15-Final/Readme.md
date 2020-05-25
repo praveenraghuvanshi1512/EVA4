@@ -2,7 +2,7 @@
 
 **Submitted By:** Praveen Raghuvanshi (praveenraghuvanshi@gmail.com)
 
-[Github Directory - Assignment -15-Final](https://github.com/praveenraghuvanshi1512/EVA4/tree/Session-15-final/Session-15/Assignment-15/Assignment-15-Final)
+[Github Directory - Assignment -15-Final](https://github.com/praveenraghuvanshi1512/EVA4/tree/master/Session-15/Assignment-15/Assignment-15-Final)
 
 
 
@@ -72,7 +72,7 @@ The dataset contains below set of images
 
 - DenseDepth (224 x 224 x 3): These are 2-D images displaying depth of objects in an image.
 
-  More details could be found at [Assignment 15-A](https://github.com/praveenraghuvanshi1512/EVA4/tree/Session-15-final/Session-15/Assignment-15/Assignment-15-A)
+  More details could be found at [Assignment 15-A](https://github.com/praveenraghuvanshi1512/EVA4/tree/master/Session-15/Assignment-15/Assignment-15-A)
 
 #### Augmentation
 
@@ -87,7 +87,7 @@ I have used [albumentation](https://github.com/albumentations-team/albumentation
 - **Rotate(-30, 30):** Rotates images by 30 degrees on left and right. This is required as background contains images of library and dog which might be captured at some angles
 - **HorizontalFlip:** Flips images by 90 degrees horizontally. This is  required due to different orientation of images
 
-[Augmentation source code](https://github.com/praveenraghuvanshi1512/EVA4/blob/Session-15-final/Session-15/Assignment-15/Assignment-15-Final/augmentation.py) 
+[Augmentation source code](https://github.com/praveenraghuvanshi1512/EVA4/blob/master/Session-15/Assignment-15/Assignment-15-Final/augmentation.py) 
 
 #### Dataset Loading
 
@@ -100,7 +100,7 @@ Optimization performed to avoid CUDA OOM issue
 - Another optimization was to create zip files and directly load and create dataset out of that.
 - Batch size is very important as it tells how many images to be loaded into memory during one train/test cycle. I have used 16 and it worked quite well.
 
-Dataset was loaded by custom class(ImageDataset) derived from torch Dataset and different arrays are created to hold the information about images. [ImageDataset source code](https://github.com/praveenraghuvanshi1512/EVA4/blob/Session-15-final/Session-15/Assignment-15/Assignment-15-Final/dataset.py). Directory containing zip files in [google drive](https://drive.google.com/drive/folders/1qiwLSBbPbEjmp4olW5rLRMM156FttAwb?usp=sharing). It has files with names such as output_1.zip, output_2.zip.... output_20.zip. Subfolder in the zip file are as follows.
+Dataset was loaded by custom class(ImageDataset) derived from torch Dataset and different arrays are created to hold the information about images. [ImageDataset source code](https://github.com/praveenraghuvanshi1512/EVA4/blob/master/Session-15/Assignment-15/Assignment-15-Final/dataset.py). Directory containing zip files in [google drive](https://drive.google.com/drive/folders/1qiwLSBbPbEjmp4olW5rLRMM156FttAwb?usp=sharing). It has files with names such as output_1.zip, output_2.zip.... output_20.zip. Subfolder in the zip file are as follows.
 
 - bg_fg_1 : 10k background+foreground images
 - bg_fg_mask_1 : 10k mask images
@@ -311,7 +311,7 @@ Dataset was loaded by custom class(ImageDataset) derived from torch Dataset and 
 
   
 
-- [Source code](https://github.com/praveenraghuvanshi1512/EVA4/blob/Session-15-final/Session-15/Assignment-15/Assignment-15-Final/models/custommodel.py)
+- [Source code](https://github.com/praveenraghuvanshi1512/EVA4/blob/master/Session-15/Assignment-15/Assignment-15-Final/models/custommodel.py)
 
 ### Loss function and Optimizers
 
@@ -325,7 +325,7 @@ I have used Binary Cross Entropy(BCE) loss for this assignment after considering
 
 The problem is to predict two images(mask and depthmap). A single loss won't be sufficient as loss from pixel comparison from a mask will be different than that of depthmap. During training, it was observed that mask is predicted quite well on large dataset whereas depth was not predicted quite well. So, added more weightage of depth loss compared to mask for calculating average loss and it improved the depthmap. 
 
-[Source code](https://github.com/praveenraghuvanshi1512/EVA4/blob/Session-15-final/Session-15/Assignment-15/Assignment-15-Final/functions.py)
+[Source code](https://github.com/praveenraghuvanshi1512/EVA4/blob/master/Session-15/Assignment-15/Assignment-15-Final/functions.py)
 
 #### Optimizer : 
 
@@ -406,7 +406,7 @@ This assignment is a great learning exercise. I have been exposed to lot of new 
 
 - [Understanding Semantic Segmentation with UNET](https://towardsdatascience.com/understanding-semantic-segmentation-with-unet-6be4f42d4b47)
 
-- [How To Save and Load Model In PyTorch With A Complete Example](**How To Save and Load Model In PyTorch With A Complete Example**)
+- [How To Save and Load Model In PyTorch With A Complete Example](https://towardsdatascience.com/how-to-save-and-load-a-model-in-pytorch-with-a-complete-example-c2920e617dee)
 
 - [Image Segmentation using U-Net](https://www.youtube.com/watch?reload=9&v=azM57JuQpQI&feature=emb_rel_pause)
 

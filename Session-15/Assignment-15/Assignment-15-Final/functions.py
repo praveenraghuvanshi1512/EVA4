@@ -119,7 +119,7 @@ def train(model,criterion,device,trainloader,optimizer,epoch):
 
       torch.save(model.state_dict(), SAVE_PATH/f"{epoch}_{batch_idx}_{loss.item()}.pth")
       
-def train_test_model(start_epoch, num_epochs, valid_loss_min_input, model, criterion, device, trainloader, testloader, optimizer, save_path='.'):
+def train_test_model(start_epoch, num_epochs, valid_loss_min_input, model, criterion, device, trainloader, testloader, optimizer, scheduler=None, save_path='.'):
     best_model_wts = copy.deepcopy(model.state_dict())
     best_train_loss = 1e10
     
@@ -129,13 +129,16 @@ def train_test_model(start_epoch, num_epochs, valid_loss_min_input, model, crite
     valid_loss = []
     
     for epoch in range(start_epoch, start_epoch + num_epochs + 1):
-
-        print('>>>>>>>> \nEpoch {}/{}'.format(epoch, start_epoch + num_epochs - 1))
+        epochlr = getlr(optimizer)
+        print('>>>>>>>> \nEpoch {}/{}, LR: {}'.format(epoch, start_epoch + num_epochs - 1, epochlr))
         t_loss = train_model(model, criterion, device, trainloader, optimizer, epoch, save_path)
         train_loss.append(t_loss)
 
         v_loss = test_model(model, criterion, device, testloader, epoch, save_path)
         valid_loss.append(v_loss)
+        
+        if scheduler is not None:
+            scheduler.step(v_loss)
 
         # print training/validation statistics 
         print('************* \nEpoch: {} \tTraining Loss: {:.6f} \tValidation Loss: {:.6f}\n'.format(
@@ -179,9 +182,9 @@ def train_model(model, criterion, device, trainloader, optimizer, epoch, save_pa
         pred_mask = outputs[0]
         pred_depth = outputs[1]
         
-        loss1 = calc_loss(pred_mask, gt_mask, metrics) # criterion(pred_mask,gt_mask)
-        loss2 = calc_loss(pred_depth, gt_depth, metrics) # criterion(pred_depth,gt_depth)
-        loss = 2*loss1 + loss2
+        loss_mask = calc_loss(pred_mask, gt_mask, metrics) # criterion(pred_mask,gt_mask)
+        loss_depth = calc_loss(pred_depth, gt_depth, metrics) # criterion(pred_depth,gt_depth)
+        loss = loss_mask + 2 * loss_depth
         
         loss.backward()
         optimizer.step()
@@ -199,18 +202,18 @@ def train_model(model, criterion, device, trainloader, optimizer, epoch, save_pa
         if batch_index%50 == 0:
             print_metrics(metrics, epoch_samples, 'train')
             
-        if epoch%50==0 and isPrinted == False:
+        if (epoch == 1 or epoch%4 == 0) and isPrinted == False:
             # Mask
             print("\n\nTrain - Actual mask")
-            plotandsave(gt_mask.detach().cpu().narrow(0,0,5), name='{}/train_actual_mask.jpg'.format(save_path))
+            plotandsave(gt_mask.detach().cpu().narrow(0,0,5), name='{}/train_actual_mask.png'.format(save_path))
             print("\n\nTrain - Predicted mask")
-            plotandsave(pred_mask.detach().cpu().narrow(0,0,5), name='{}/train_predicted_mask.jpg'.format(save_path))
+            plotandsave(pred_mask.detach().cpu().narrow(0,0,5), name='{}/train_predicted_mask.png'.format(save_path))
 
             # Depth
             print("\n\nTrain - Actual Depth")
-            plotandsave(gt_depth.detach().cpu().narrow(0,0,5), name='{}/train_actual_depth.jpg'.format(save_path))
+            plotandsave(gt_depth.detach().cpu().narrow(0,0,5), name='{}/train_actual_depth.png'.format(save_path))
             print("\n\nTrain - Predicted Depth")
-            plotandsave(pred_depth.detach().cpu().narrow(0,0,5), name='{}/train_predicted_depth.jpg'.format(save_path))
+            plotandsave(pred_depth.detach().cpu().narrow(0,0,5), name='{}/train_predicted_depth.png'.format(save_path))
             isPrinted = True
             print('Best val loss: {:4f}'.format(best_loss))
 
@@ -243,18 +246,18 @@ def test_model(model, criterion, device, testloader, epoch, save_path='.'):
         if batch_index % 50 == 0:
             print_metrics(metrics, epoch_samples, 'test')
 
-        if epoch%50 == 0 and isPrinted == False:
+        if (epoch == 1 or epoch%4 == 0) and isPrinted == False:
             # Mask
             print("\n\nTest - Actual mask: {}".format(epoch))
-            plotandsave(gt_mask.detach().cpu().narrow(0,0,5), name='{}/test_actual_mask.jpg'.format(save_path))
+            plotandsave(gt_mask.detach().cpu().narrow(0,0,5), name='{}/test_actual_mask.png'.format(save_path))
             print("\n\nTest - Predicted mask")
-            plotandsave(pred_mask.detach().cpu().narrow(0,0,5), name='{}/test_predicted_mask.jpg'.format(save_path))
+            plotandsave(pred_mask.detach().cpu().narrow(0,0,5), name='{}/test_predicted_mask.png'.format(save_path))
 
             # Depth
             print("\n\nTest - Actual Depth")
-            plotandsave(gt_depth.detach().cpu().narrow(0,0,5), name='{}/test_actual_depth.jpg'.format(save_path))
+            plotandsave(gt_depth.detach().cpu().narrow(0,0,5), name='{}/test_actual_depth.png'.format(save_path))
             print("\n\nTest - Predicted Depth")
-            plotandsave(pred_depth.detach().cpu().narrow(0,0,5), name='{}/test_predicted_depth.jpg'.format(save_path))
+            plotandsave(pred_depth.detach().cpu().narrow(0,0,5), name='{}/test_predicted_depth.png'.format(save_path))
             isPrinted = True
     
     return epoch_loss
@@ -313,6 +316,9 @@ def plotmetrics(trainlosses, testlosses, save_file):
     plt.show()
     plt.savefig(save_file)    
 
+def getlr(optimizer):
+    for param_group in optimizer.param_groups:
+        return param_group['lr']
 '''
 def loadcifar10dataset(transform_train, transform_test):
     trainset = torchvision.datasets.CIFAR10(root='./data', train=True,

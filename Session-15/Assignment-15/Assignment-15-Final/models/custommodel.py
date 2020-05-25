@@ -1,273 +1,100 @@
-# https://raw.githubusercontent.com/ugent-korea/pytorch-unet-segmentation/master/src/simple_model.py
 import torch
 import torch.nn as nn
-from torch.autograd import Variable
-import numpy as np
-from PIL import Image
-from torch.nn.functional import sigmoid
+import torch.nn.functional as F
+
+class ConvBnRelu2d(nn.Module):
+    def __init__(self, in_channels, out_channels, kernel_size=(3, 3), padding=1):
+        super(ConvBnRelu2d, self).__init__()
+        self.conv = nn.Conv2d(in_channels, out_channels, kernel_size=kernel_size, padding=padding, bias=False)
+        self.bn = nn.BatchNorm2d(out_channels)
+        self.relu = nn.ReLU(inplace=True)
+
+    def forward(self, x):
+        x = self.conv(x)
+        x = self.bn(x)
+        x = self.relu(x)
+        return x
+
+
+class Encoder(nn.Module):
+    def __init__(self, xchannels, ychannels, kernel_size=(3, 3)):
+        super(Encoder, self).__init__()
+        padding = (kernel_size - 1) // 2
+        self.encode = nn.Sequential(
+            ConvBnRelu2d(xchannels, ychannels, kernel_size=kernel_size, padding=padding),
+            ConvBnRelu2d(ychannels, ychannels, kernel_size=kernel_size, padding=padding),
+        )
+
+    def forward(self, x):
+        x = self.encode(x)
+        x_small = F.max_pool2d(x, kernel_size=2, stride=2)
+        return x, x_small
+
+
+class Decoder(nn.Module):
+    def __init__(self, xbigchannels, xchannels, ychannels, kernel_size=3):
+        super(Decoder, self).__init__()
+        padding = (kernel_size - 1) // 2
+
+        self.decode = nn.Sequential(
+            ConvBnRelu2d(xbigchannels + xchannels, ychannels, kernel_size=kernel_size, padding=padding),
+            ConvBnRelu2d(ychannels, ychannels, kernel_size=kernel_size, padding=padding),
+            ConvBnRelu2d(ychannels, ychannels, kernel_size=kernel_size, padding=padding),
+        )
+
+    def forward(self, x, down_tensor):
+        _, channels, height, width = down_tensor.size()
+        x = F.upsample(x, size=(height, width), mode='bilinear')
+        x = torch.cat([x, down_tensor], 1)
+        x = self.decode(x)
+        return x
 
 
 class CustomNet(nn.Module):
-
-    def __init__(self):
-
+    def __init__(self, in_shape):
         super(CustomNet, self).__init__()
+        channels, height, width = in_shape
 
-        # Conv block 1 - Down 1
-        self.conv1_block = nn.Sequential(
-            nn.Conv2d(in_channels=3, out_channels=32,
-                      kernel_size=3, padding=1, stride=1),
-            nn.ReLU(inplace=True),
-            nn.Conv2d(in_channels=32, out_channels=32,
-                      kernel_size=3, padding=1, stride=1),
-            nn.ReLU(inplace=True),
-        )
-        self.max1 = nn.MaxPool2d(kernel_size=2, stride=2)
+        self.down1 = Encoder(channels, 32, kernel_size=3)
+        self.down2 = Encoder(32, 64, kernel_size=3)
+        self.down3 = Encoder(64, 128, kernel_size=3)
+        self.down4 = Encoder(128, 256, kernel_size=3)
 
-        # Conv block 2 - Down 2
-        self.conv2_block = nn.Sequential(
-            nn.Conv2d(in_channels=32, out_channels=64,
-                      kernel_size=3, padding=1, stride=1),
-            nn.ReLU(inplace=True),
-            nn.Conv2d(in_channels=64, out_channels=64,
-                      kernel_size=3, padding=1, stride=1),
-            nn.ReLU(inplace=True),
-        )
-        self.max2 = nn.MaxPool2d(kernel_size=2, stride=2)
-
-        # Conv block 3 - Down 3
-        self.conv3_block = nn.Sequential(
-            nn.Conv2d(in_channels=64, out_channels=128,
-                      kernel_size=3, padding=1, stride=1),
-            nn.ReLU(inplace=True),
-            nn.Conv2d(in_channels=128, out_channels=128,
-                      kernel_size=3, padding=1, stride=1),
-            nn.ReLU(inplace=True),
-        )
-        self.max3 = nn.MaxPool2d(kernel_size=2, stride=2)
-
-        # Conv block 4 - Down 4
-        self.conv4_block = nn.Sequential(
-            nn.Conv2d(in_channels=128, out_channels=256,
-                      kernel_size=3, padding=1, stride=1),
-            nn.ReLU(inplace=True),
-            nn.Conv2d(in_channels=256, out_channels=256,
-                      kernel_size=3, padding=1, stride=1),
-            nn.ReLU(inplace=True),
-        )
-        self.max4 = nn.MaxPool2d(kernel_size=2, stride=2)
-
-        # Conv block 5 - Down 5
-        self.conv5_block = nn.Sequential(
-            nn.Conv2d(in_channels=256, out_channels=512,
-                      kernel_size=3, padding=1, stride=1),
-            nn.ReLU(inplace=True),
-            nn.Conv2d(in_channels=512, out_channels=512,
-                      kernel_size=3, padding=1, stride=1),
-            nn.ReLU(inplace=True),
+        self.center = nn.Sequential(
+            ConvBnRelu2d(256, 256, kernel_size=3, padding=1),
         )
 
-        # Up 1
-        self.up_1 = nn.ConvTranspose2d(in_channels=512, out_channels=256, kernel_size=2, stride=2)
+        self.up4 = Decoder(256, 256, 128, kernel_size=3)
+        self.up3 = Decoder(128, 128, 64, kernel_size=3)
+        self.up2 = Decoder(64, 64, 32, kernel_size=3)
+        self.up1 = Decoder(32, 32, 32, kernel_size=3)
+        self.classify_m = nn.Conv2d(32, 1, kernel_size=1, bias=True)
+        self.classify_d = nn.Conv2d(32, 3, kernel_size=1, bias=True)
 
-        # Up Conv block 1
-        self.conv_up_1 = nn.Sequential(
-            nn.Conv2d(in_channels=512, out_channels=256,
-                      kernel_size=3, padding=1, stride=1),
-            nn.ReLU(inplace=True),
-            nn.Conv2d(in_channels=256, out_channels=256,
-                      kernel_size=3, padding=1, stride=1),
-            nn.ReLU(inplace=True),
-        )
+    def forward(self, x):
+        out = x
+        down1, out = self.down1(out)
+        down2, out = self.down2(out)
+        down3, out = self.down3(out)
+        down4, out = self.down4(out)
+        
+        xd = self.center(out)
+        out = self.center(out)
 
-        # Up 2
-        self.up_2 = nn.ConvTranspose2d(in_channels=256, out_channels=128, kernel_size=2, stride=2)
+        out = self.up4(out, down4)
+        out = self.up3(out, down3)
+        out = self.up2(out, down2)
+        out = self.up1(out, down1)
+        
+        # Mask
+        out = self.classify_m(out)
 
-        # Up Conv block 2
-        self.conv_up_2 = nn.Sequential(
-            nn.Conv2d(in_channels=256, out_channels=128,
-                      kernel_size=3, padding=1, stride=1),
-            nn.ReLU(inplace=True),
-            nn.Conv2d(in_channels=128, out_channels=128,
-                      kernel_size=3, padding=1, stride=1),
-            nn.ReLU(inplace=True),
-        )
+        outd = self.up4(xd, down4)
+        outd = self.up3(outd, down3)
+        outd = self.up2(outd, down2)
+        outd = self.up1(outd, down1)
 
-        # Up 3
-        self.up_3 = nn.ConvTranspose2d(in_channels=128, out_channels=64, kernel_size=2, stride=2)
+        # Depth map
+        outd = self.classify_d(outd)
 
-        # Up Conv block 3
-        self.conv_up_3 = nn.Sequential(
-            nn.Conv2d(in_channels=128, out_channels=64,
-                      kernel_size=3, padding=1, stride=1),
-            nn.ReLU(inplace=True),
-            nn.Conv2d(in_channels=64, out_channels=64,
-                      kernel_size=3, padding=1, stride=1),
-            nn.ReLU(inplace=True),
-        )
-
-        # Up 4
-        self.up_4 = nn.ConvTranspose2d(in_channels=64, out_channels=32, kernel_size=2, stride=2)
-
-        # Up Conv block 4
-        self.conv_up_4 = nn.Sequential(
-            nn.Conv2d(in_channels=64, out_channels=32,
-                      kernel_size=3, padding=1, stride=1),
-            nn.ReLU(inplace=True),
-            nn.Conv2d(in_channels=32, out_channels=32,
-                      kernel_size=3, padding=1, stride=1),
-            nn.ReLU(inplace=True),
-        )
-
-        # Final output
-        self.conv_final_mask = nn.Conv2d(in_channels=32, out_channels=1,
-                                    kernel_size=1, padding=0, stride=1)
-
-        self.conv_final_depth = nn.Conv2d(in_channels=32, out_channels=3,
-                                    kernel_size=1, padding=0, stride=1)
-
-    def forward(self, sample):
-        bgfgs = sample['bg_fg']
-        # print('input', x.shape)
-
-        # Down 1
-        x = self.conv1_block(bgfgs)
-        # print('after conv1', x.shape)
-        conv1_out = x  # Save out1
-        conv1_dim = x.shape[2]
-        x = self.max1(x)
-        # print('before conv2', x.shape)
-
-        # Down 2
-        x = self.conv2_block(x)
-        # print('after conv2', x.shape)
-        conv2_out = x
-        conv2_dim = x.shape[2]
-        x = self.max2(x)
-        # print('before conv3', x.shape)
-
-        # Down 3
-        x = self.conv3_block(x)
-        # print('after conv3', x.shape)
-        conv3_out = x
-        conv3_dim = x.shape[2]
-        x = self.max3(x)
-        # print('before conv4', x.shape)
-
-        # Down 4
-        x = self.conv4_block(x)
-        # print('after conv5', x.shape)
-        conv4_out = x
-        conv4_dim = x.shape[2]
-        x = self.max4(x)
-
-        # Midpoint
-        conv_mid = self.conv5_block(x)
-        conv5d = self.conv5_block(x)
-
-        # Up 1
-        x = self.up_1(conv_mid)
-        # print('up_1', x.shape)
-        lower = int((conv4_dim - x.shape[2]) / 2)
-        upper = int(conv4_dim - lower)
-        conv4_out_modified = conv4_out[:, :, lower:upper, lower:upper]
-        x = torch.cat([x, conv4_out_modified], dim=1)
-        # print('after cat_1', x.shape)
-        x = self.conv_up_1(x)
-        # print('after conv_1', x.shape)
-
-        # Up 2
-        x = self.up_2(x)
-        # print('up_2', x.shape)
-        lower = int((conv3_dim - x.shape[2]) / 2)
-        upper = int(conv3_dim - lower)
-        conv3_out_modified = conv3_out[:, :, lower:upper, lower:upper]
-        x = torch.cat([x, conv3_out_modified], dim=1)
-        # print('after cat_2', x.shape)
-        x = self.conv_up_2(x)
-        # print('after conv_2', x.shape)
-
-        # Up 3
-        x = self.up_3(x)
-        # print('up_3', x.shape)
-        lower = int((conv2_dim - x.shape[2]) / 2)
-        upper = int(conv2_dim - lower)
-        conv2_out_modified = conv2_out[:, :, lower:upper, lower:upper]
-        x = torch.cat([x, conv2_out_modified], dim=1)
-        # print('after cat_3', x.shape)
-        x = self.conv_up_3(x)
-        # print('after conv_3', x.shape)
-
-        # Up 4
-        x = self.up_4(x)
-        # print('up_4', x.shape)
-        lower = int((conv1_dim - x.shape[2]) / 2)
-        upper = int(conv1_dim - lower)
-        conv1_out_modified = conv1_out[:, :, lower:upper, lower:upper]
-        x = torch.cat([x, conv1_out_modified], dim=1)
-        # print('after cat_4', x.shape)
-        x = self.conv_up_4(x)
-        # print('after conv_4', x.shape)
-
-        # Final output
-        outMask = self.conv_final_mask(x)
-
-        # ******** Second Output - Depth
-        # Up 1
-        x = self.up_1(conv5d)
-        # print('up_1', x.shape)
-        lower = int((conv4_dim - x.shape[2]) / 2)
-        upper = int(conv4_dim - lower)
-        conv4_out_modified = conv4_out[:, :, lower:upper, lower:upper]
-        x = torch.cat([x, conv4_out_modified], dim=1)
-        # print('after cat_1', x.shape)
-        x = self.conv_up_1(x)
-        # print('after conv_1', x.shape)
-
-        # Up 2
-        x = self.up_2(x)
-        # print('up_2', x.shape)
-        lower = int((conv3_dim - x.shape[2]) / 2)
-        upper = int(conv3_dim - lower)
-        conv3_out_modified = conv3_out[:, :, lower:upper, lower:upper]
-        x = torch.cat([x, conv3_out_modified], dim=1)
-        # print('after cat_2', x.shape)
-        x = self.conv_up_2(x)
-        # print('after conv_2', x.shape)
-
-        # Up 3
-        x = self.up_3(x)
-        # print('up_3', x.shape)
-        lower = int((conv2_dim - x.shape[2]) / 2)
-        upper = int(conv2_dim - lower)
-        conv2_out_modified = conv2_out[:, :, lower:upper, lower:upper]
-        x = torch.cat([x, conv2_out_modified], dim=1)
-        # print('after cat_3', x.shape)
-        x = self.conv_up_3(x)
-        # print('after conv_3', x.shape)
-
-        # Up 4
-        x = self.up_4(x)
-        # print('up_4', x.shape)
-        lower = int((conv1_dim - x.shape[2]) / 2)
-        upper = int(conv1_dim - lower)
-        conv1_out_modified = conv1_out[:, :, lower:upper, lower:upper]
-        x = torch.cat([x, conv1_out_modified], dim=1)
-        # print('after cat_4', x.shape)
-        x = self.conv_up_4(x)
-        # print('after conv_4', x.shape)
-        # Final output
-        outDepth = self.conv_final_depth(x)
-
-        return outMask, outDepth
-
-
-'''if __name__ == "__main__":
-    # A full forward pass
-    im = torch.randn(1, 3, 224, 224)
-    model = CleanU_Net()
-    x = model(im)
-    # print(x.shape)
-    del model
-    del x
-    # print(x.shape)'''
+        return out, outd
