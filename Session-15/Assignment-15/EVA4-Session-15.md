@@ -328,6 +328,9 @@ Evaluators are lazy, to make sure that you can keep them excited when they are r
         - https://mxnet.apache.org/versions/1.2.1/tutorials/python/data_augmentation_with_masks.html
         - https://www.slideshare.net/NaverEngineering/depth-estimation-do-we-need-to-throw-old-things-away
         - IMP [file:///C:/Users/praghuvanshi/Downloads/sensors-19-01795.pdf](file:///C:/Users/praghuvanshi/Downloads/sensors-19-01795.pdf)
+        - IMP https://www.jeremyjordan.me/semantic-segmentation/
+        - IMP https://neptune.ai/blog/image-segmentation-in-2020
+        - 
 - Visualization
   - Tensorboard
     - http://www.programmersought.com/article/8842149639/
