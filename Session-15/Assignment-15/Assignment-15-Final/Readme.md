@@ -8,6 +8,10 @@
 
 [Notebook - NBViewer](https://nbviewer.jupyter.org/github/praveenraghuvanshi1512/EVA4/blob/master/Session-15/Assignment-15/Assignment-15-Final/EVA_4_S15_A_Final_Mask_Depth_V9_Both.ipynb)
 
+[Colab Notebook](https://colab.research.google.com/drive/1sPbrH34KqNbhyrQsjhs9o3_rod1tkpzk?usp=sharing)
+
+[Dataset](https://drive.google.com/drive/folders/1qiwLSBbPbEjmp4olW5rLRMM156FttAwb?usp=sharing)
+
 [TOC]
 
 
